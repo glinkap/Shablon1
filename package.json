@@ -1,0 +1,17 @@
+{
+  "name": "saitvizitka",
+  "version": "1.0.0",
+  "description": "test siat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Petr",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.13.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1",
+    "livereload": "^0.4.1"
+  }
+}
