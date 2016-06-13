@@ -2,7 +2,9 @@ var gulp  			= require('gulp'),
 	sass 			= require('gulp-sass'),
 	browserSync 	= require('browser-sync'),
 	concat 			= require('gulp-concat'),
-	uglify			= require('gulp-uglifyjs');
+	uglify			= require('gulp-uglifyjs'),
+	cssnano			= require('gulp-cssnano'),
+	rename			= require('gulp-rename');
 
 gulp.task('sass', function(){
 	return gulp.src('app/sass/*.+(scss|sass)')
@@ -21,6 +23,13 @@ gulp.task('scripts', function(){
 		;
 	});
 
+gulp.task('css-vendor',['sass'], function(){
+	return gulp.src('app/css/vendor.css')
+	.pipe(cssnano())
+	.pipe(rename({suffix: '.min'}))
+	.pipe(gulp.dest('app/css'))
+	});
+
 gulp.task('browser-sync', function(){
 	browserSync({
 		server: {
@@ -31,7 +40,7 @@ gulp.task('browser-sync', function(){
 		});
 	});
 
-gulp.task('watch',['browser-sync','sass'], function(){
+gulp.task('watch',['browser-sync','css-vendor','scripts' ], function(){
 	gulp.watch('app/sass/*.+(scss|sass)',['sass']); // при изменение файлов запускать такс sass
 	gulp.watch('app/**/*.+(html|shtml)', browserSync.reload);
 	gulp.watch('app/js/*.js', browserSync.reload);
